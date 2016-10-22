@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gallery in table tag using Angular 1.5.x</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="uikit-2271/css/uikit.min.css" rel="stylesheet" type="text/css"/>
+        <link href="uikit-2271/css/uikit.almost-flat.min.css" rel="stylesheet" type="text/css"/>
+        <link href="uikit-2271/css/uikit.gradient.min.css" rel="stylesheet" type="text/css"/>
+        <link href="uikit-2271/css/components/htmleditor.css" rel="stylesheet" type="text/css"/>
+        <script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+        <script type="text/javascript" src="uikit-2271/js/uikit.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    </head>
+    <body ng-app="myApp" class=''>
+        <div ng-controller="myController" class='uk-row uk-width-1-2' style='margin:0px auto;'>
+            <div class="uk-grid">
+                    <div class="uk-width-medium-1-1">
+                    <div class="uk-panel uk-panel-box">
+                        <div class="uk-panel-badge uk-badge">AngularJS 1.4.9 and UIKit 2.7</div>
+                        <h3 class="uk-panel-title">Creating Gallery Thumbnail view in Angular JS</h3>
+                        Example to show ng-repeater within ng-repeater Angular JS to create Gallery Thumbnail View.
+                    </div>
+                    </div>
+            </div>
+            <div class='uk-center'>
+            <table class="uk-table" ng-init="cols=[0,1,2];i=0;">
+                 <tr ng-repeat="row in thumbnails" ng-if="$index%3==0" >
+                    <td ng-repeat='col in cols' class="uk-width-1-6">
+                        <div class=""><a class="uk-thumbnail" href="javascript:void(0);"><img class="" ng-src="images/{{thumbnails[$parent.$index+col].thumbnail}}" /></a></div>
+                        <div class="uk-thumbnail-caption uk-center" style="padding:5px; background: #f2f2f2;font-weight:bold;">{{$parent.$index+col+1}} {{thumbnails[$parent.$index+col].name}}</div>
+                    </td>
+                </tr>
+            </table>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    (function () {
+
+        var app = angular.module('myApp',[]);
+
+        app.controller('myController', function ($scope, $http) {
+            
+            $http.get('thumbnails.html').then(function (response) {
+                
+                $scope.thumbnails = response.data;
+               // console.log(response.data)
+
+            });
+
+        });
+
+    }());
+</script>
+
